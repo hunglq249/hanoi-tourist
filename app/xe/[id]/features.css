@@ -1,0 +1,40 @@
+.car-features-html ul,
+.car-features-html ol {
+  padding-left: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.375rem 1.5rem;
+  list-style: none;
+}
+
+.car-features-html li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.875rem;
+  color: #cccccc;
+  line-height: 1.5;
+}
+
+.car-features-html li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #006400;
+  flex-shrink: 0;
+}
+
+html:not(.dark) .car-features-html li {
+  color: #444444;
+}
+
+.car-features-html strong { font-weight: 600; }
+.car-features-html em { font-style: italic; }
+
+.car-features-html a {
+  color: #006400;
+  text-decoration: underline;
+}

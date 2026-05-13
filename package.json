@@ -1,0 +1,40 @@
+{
+  "name": "hanoi-tourism-rental",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "cp -r node_modules/tinymce public/tinymce 2>/dev/null || true",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.105.4",
+    "@tinymce/tinymce-react": "^6.3.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "framer-motion": "^11.3.8",
+    "lucide-react": "^0.383.0",
+    "next": "14.2.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.52.1",
+    "tailwind-merge": "^2.3.0",
+    "tinymce": "^8.5.0",
+    "uuid": "^10.0.0",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/uuid": "^10.0.0",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
