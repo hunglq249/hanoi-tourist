@@ -6,7 +6,6 @@ import { Plus, Pencil, Trash2 } from 'lucide-react';
 import type { Car } from '@/lib/types';
 import { formatCurrency } from '@/lib/data';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Editor = dynamic<any>(
   () => (import('@tinymce/tinymce-react').then((m) => m.Editor) as unknown as Promise<React.ComponentType<any>>),
   {

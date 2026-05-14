@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 import type { PricingPlan } from '@/lib/types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Editor = dynamic<any>(
   () => (import('@tinymce/tinymce-react').then((m) => m.Editor) as unknown as Promise<React.ComponentType<any>>),
   {
