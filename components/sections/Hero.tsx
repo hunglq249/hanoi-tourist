@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { ChevronDown, Star, Shield, Clock } from 'lucide-react';
+import { ChevronDown, Star, Shield, Clock, Search } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { COMPANY_INFO } from '@/lib/data';
 
 export default function Hero() {
+  const t = useTranslations('hero');
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,80 +20,90 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      ref={heroRef}
-      className="relative min-h-screen flex items-center overflow-hidden noise-overlay"
-      style={{
-        background: 'linear-gradient(135deg, #0A0A0A 0%, #141414 40%, #071A10 100%)',
-      }}
-    >
-      {/* Background decorative elements */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 60% at 70% 50%, rgba(212,160,23,0.08) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute top-20 right-10 w-96 h-96 rounded-full opacity-5"
-        style={{ background: 'radial-gradient(circle, #006400 0%, transparent 70%)' }}
-      />
-      <div
-        className="absolute bottom-20 left-10 w-64 h-64 rounded-full opacity-5"
-        style={{ background: 'radial-gradient(circle, #006400 0%, transparent 70%)' }}
-      />
+    <section ref={heroRef} className="relative min-h-screen flex flex-col">
+      {/* Background image with overlays */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1800&q=90"
+          alt="Hanoi Tourism cho thuê xe"
+          className="w-full h-full object-cover"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to right, rgba(5,20,5,0.82) 0%, rgba(5,20,5,0.55) 55%, rgba(5,20,5,0.35) 100%)',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%)',
+          }}
+        />
+      </div>
 
-      {/* Grid lines decoration */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(212,160,23,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,160,23,1) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
-        }}
-      />
-
-      <div className="container-custom relative z-10 pt-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[85vh] py-20">
-          {/* Left content */}
-          <div>
+      {/* Main content */}
+      <div className="relative z-10 flex-1 flex items-center pt-28 md:pt-32">
+        <div className="container-custom w-full py-12">
+          <div className="max-w-2xl">
             <div
-              className="hero-animate section-label mb-6"
-              style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease' }}
+              className="hero-animate mb-5"
+              style={{
+                opacity: 0,
+                transform: 'translateY(20px)',
+                transition: 'all 0.6s ease',
+                fontSize: 13,
+                fontWeight: 600,
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: '#4ADE80',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+              }}
             >
-              Uy tín · Chuyên nghiệp · Đáng tin cậy
+              <span style={{ display: 'inline-block', width: 32, height: 2, background: '#22C55E' }} />
+              {t('tagline')}
             </div>
 
             <h1
-              className="hero-animate font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
+              className="hero-animate font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-5 text-white"
               style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease' }}
             >
-              Cho Thuê Xe{' '}
-              <span className="gradient-text">Tự Lái</span>
-              <br />
-              Tại Hà Nội
+              {t('heading1')}{' '}
+              <span style={{ color: '#4ADE80' }}>{t('headingGreen')}</span>
+              {t('heading2') && <><br />{t('heading2')}</>}
             </h1>
 
             <p
-              className="hero-animate text-[#AAAAAA] text-lg leading-relaxed mb-8 max-w-lg"
+              className="hero-animate text-gray-200 text-lg leading-relaxed mb-8 max-w-lg"
               style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease' }}
             >
-              Trải nghiệm tự do di chuyển với đội xe đa dạng từ sedan, SUV đến xe sang.
-              Dịch vụ thuê xe dài hạn cho văn phòng &amp; doanh nghiệp với giá ưu đãi tốt nhất.
+              {t('description')}
             </p>
 
             {/* Trust badges */}
             <div
-              className="hero-animate flex flex-wrap gap-4 mb-10"
+              className="hero-animate flex flex-wrap gap-3 mb-8"
               style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease' }}
             >
               {[
-                { icon: Star, text: '4.9/5 đánh giá' },
-                { icon: Shield, text: 'Bảo hiểm đầy đủ' },
-                { icon: Clock, text: 'Giao xe tận nơi' },
+                { icon: Star, text: t('badge_rating') },
+                { icon: Shield, text: t('badge_insurance') },
+                { icon: Clock, text: t('badge_delivery') },
               ].map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-2 bg-[#1A1A1A] border border-[#2A2A2A] rounded-full px-4 py-2">
-                  <Icon size={14} className="text-[#006400]" />
-                  <span className="text-sm text-[#CCCCCC]">{text}</span>
+                <div
+                  key={text}
+                  className="flex items-center gap-2 rounded-full px-4 py-2"
+                  style={{
+                    background: 'rgba(255,255,255,0.12)',
+                    backdropFilter: 'blur(8px)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                  }}
+                >
+                  <Icon size={14} style={{ color: '#4ADE80' }} />
+                  <span className="text-sm text-white">{text}</span>
                 </div>
               ))}
             </div>
@@ -102,57 +114,19 @@ export default function Hero() {
               style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease' }}
             >
               <a href="#booking" className="btn-gold text-center text-base">
-                Đặt xe ngay hôm nay
+                {t('cta_book')}
               </a>
               <a
                 href={`tel:${COMPANY_INFO.phone.replace(/\s/g, '')}`}
-                className="btn-outline-gold text-center text-base"
+                className="text-center text-base font-semibold py-3 px-6 rounded-lg text-white transition-all"
+                style={{
+                  background: 'rgba(255,255,255,0.12)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1.5px solid rgba(255,255,255,0.3)',
+                }}
               >
-                Gọi: {COMPANY_INFO.phone}
+                {t('cta_call', { phone: COMPANY_INFO.phone })}
               </a>
-            </div>
-          </div>
-
-          {/* Right - Car visual */}
-          <div
-            className="hero-animate relative hidden lg:block"
-            style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease' }}
-          >
-            <div className="relative">
-              {/* Glow behind car */}
-              <div
-                className="absolute inset-0 rounded-3xl blur-3xl opacity-20"
-                style={{ background: 'linear-gradient(135deg, #006400, #008000)' }}
-              />
-              {/* Car image */}
-              <div className="relative rounded-3xl overflow-hidden border border-[#2A2A2A]">
-                <img
-                  src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&q=85"
-                  alt="Xe cho thuê cao cấp Hanoi Tourism"
-                  className="w-full h-[460px] object-cover"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: 'linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 50%)',
-                  }}
-                />
-                {/* Floating stats card */}
-                <div className="absolute bottom-6 left-6 right-6 bg-[#0A0A0A]/90 backdrop-blur-sm border border-[#2A2A2A] rounded-2xl p-5">
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    {[
-                      { value: '200+', label: 'Xe sẵn có' },
-                      { value: '15K+', label: 'Khách hàng' },
-                      { value: '8+', label: 'Năm kinh nghiệm' },
-                    ].map(({ value, label }) => (
-                      <div key={label}>
-                        <div className="font-display text-2xl font-bold text-[#006400]">{value}</div>
-                        <div className="text-[11px] text-[#8A8A8A] mt-0.5">{label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -161,11 +135,60 @@ export default function Hero() {
       {/* Scroll indicator */}
       <a
         href="#services"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#8A8A8A] hover:text-[#006400] transition-colors animate-bounce"
+        className="absolute bottom-[130px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-colors animate-bounce z-10"
+        style={{ color: 'rgba(255,255,255,0.5)' }}
       >
-        <span className="text-xs tracking-widest uppercase">Khám phá</span>
+        <span className="text-xs tracking-widest uppercase">{t('scroll')}</span>
         <ChevronDown size={18} />
       </a>
+
+      {/* Booking strip */}
+      <div className="relative z-10">
+        <div className="bg-white dark:bg-[#141414] shadow-[0_-8px_30px_rgba(0,0,0,0.15)] dark:shadow-none border-t dark:border-[#2A2A2A] border-transparent">
+          <div className="container-custom py-5">
+            <div className="flex flex-col md:flex-row items-end gap-4">
+              <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-[#006400] uppercase tracking-wide mb-1.5">
+                    {t('search_type_label')}
+                  </label>
+                  <select className="w-full border border-[#DDE8DD] dark:border-[#2A2A2A] rounded-lg px-3 py-2.5 text-sm bg-[#F8FAF8] dark:bg-[#1A1A1A] dark:text-white text-[#1A2B1A] focus:outline-none focus:border-[#006400] transition-colors">
+                    <option value="">{t('search_type_all')}</option>
+                    <option value="sedan">{t('search_type_sedan')}</option>
+                    <option value="suv">{t('search_type_suv')}</option>
+                    <option value="luxury">{t('search_type_luxury')}</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#006400] uppercase tracking-wide mb-1.5">
+                    {t('search_pickup_label')}
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full border border-[#DDE8DD] dark:border-[#2A2A2A] rounded-lg px-3 py-2.5 text-sm bg-[#F8FAF8] dark:bg-[#1A1A1A] dark:text-white text-[#1A2B1A] focus:outline-none focus:border-[#006400] transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#006400] uppercase tracking-wide mb-1.5">
+                    {t('search_return_label')}
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full border border-[#DDE8DD] dark:border-[#2A2A2A] rounded-lg px-3 py-2.5 text-sm bg-[#F8FAF8] dark:bg-[#1A1A1A] dark:text-white text-[#1A2B1A] focus:outline-none focus:border-[#006400] transition-colors"
+                  />
+                </div>
+              </div>
+              <a
+                href="#fleet"
+                className="btn-gold whitespace-nowrap flex items-center justify-center gap-2 w-full sm:w-auto"
+              >
+                <Search size={16} />
+                {t('search_btn')}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

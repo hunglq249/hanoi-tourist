@@ -3,10 +3,12 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CheckCircle, Loader2, Car, Building2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { CARS, PICKUP_LOCATIONS } from '@/lib/data';
 import { BookingFormData } from '@/lib/types';
 
 export default function BookingForm() {
+  const t = useTranslations('booking');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [bookingType, setBookingType] = useState<'self-drive' | 'long-term'>('self-drive');
@@ -43,22 +45,21 @@ export default function BookingForm() {
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left info */}
           <div className="lg:sticky lg:top-28">
-            <div className="section-label mb-4">Đặt xe ngay</div>
+            <div className="section-label mb-4">{t('label')}</div>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
-              Nhận Xe Trong
+              {t('heading1')}
               <br />
-              <span className="gradient-text">30 Phút</span>
+              <span className="gradient-text">{t('headingGreen')}</span>
             </h2>
             <p className="text-[#8A8A8A] text-lg leading-relaxed mb-8">
-              Điền thông tin bên cạnh — chúng tôi sẽ liên hệ xác nhận và báo giá chính xác trong vòng 15 phút.
-              Không cần thanh toán trước.
+              {t('description')}
             </p>
 
             <div className="space-y-4">
               {[
-                { step: '01', title: 'Điền form đặt xe', desc: 'Chọn xe, ngày và địa điểm nhận' },
-                { step: '02', title: 'Nhận xác nhận', desc: 'Chúng tôi gọi lại trong 15 phút' },
-                { step: '03', title: 'Nhận xe & lên đường', desc: 'Giao xe tận nơi, ký hợp đồng' },
+                { step: '01', title: t('step1_title'), desc: t('step1_desc') },
+                { step: '02', title: t('step2_title'), desc: t('step2_desc') },
+                { step: '03', title: t('step3_title'), desc: t('step3_desc') },
               ].map(({ step, title, desc }) => (
                 <div key={step} className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#006400] to-[#008000] flex items-center justify-center flex-shrink-0 text-black font-bold text-sm">
@@ -73,10 +74,8 @@ export default function BookingForm() {
             </div>
 
             <div className="mt-10 bg-[#141414] border border-[#006400]/20 rounded-2xl p-5">
-              <div className="text-[#006400] text-sm font-semibold mb-1">✦ Cam kết của chúng tôi</div>
-              <p className="text-[#8A8A8A] text-sm">
-                Không cần đặt cọc trước khi xác nhận. Giá báo là giá thực tế, không phát sinh thêm.
-              </p>
+              <div className="text-[#006400] text-sm font-semibold mb-1">{t('commitment_title')}</div>
+              <p className="text-[#8A8A8A] text-sm">{t('commitment_text')}</p>
             </div>
           </div>
 
@@ -88,16 +87,14 @@ export default function BookingForm() {
                   <CheckCircle size={32} className="text-[#006400]" />
                 </div>
                 <h3 className="font-display text-2xl font-bold text-white mb-3">
-                  Đặt xe thành công!
+                  {t('success_title')}
                 </h3>
-                <p className="text-[#8A8A8A] text-base mb-6">
-                  Cảm ơn bạn đã tin tưởng Hanoi Tourism. Chúng tôi sẽ liên hệ xác nhận trong vòng 15 phút qua điện thoại hoặc Zalo.
-                </p>
+                <p className="text-[#8A8A8A] text-base mb-6">{t('success_desc')}</p>
                 <button
                   onClick={() => setSubmitted(false)}
                   className="btn-outline-gold text-sm"
                 >
-                  Đặt xe khác
+                  {t('book_another')}
                 </button>
               </div>
             ) : (
@@ -105,8 +102,8 @@ export default function BookingForm() {
                 {/* Type selector */}
                 <div className="grid grid-cols-2 gap-3 mb-8">
                   {[
-                    { key: 'self-drive', icon: Car, label: 'Thuê xe tự lái' },
-                    { key: 'long-term', icon: Building2, label: 'Thuê dài hạn' },
+                    { key: 'self-drive', icon: Car, label: t('type_self') },
+                    { key: 'long-term', icon: Building2, label: t('type_long') },
                   ].map(({ key, icon: Icon, label }) => (
                     <button
                       key={key}
@@ -129,12 +126,12 @@ export default function BookingForm() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[#CCCCCC] text-sm font-medium mb-1.5">
-                        Họ và tên <span className="text-[#006400]">*</span>
+                        {t('name_label')} <span className="text-[#006400]">*</span>
                       </label>
                       <input
-                        {...register('fullName', { required: 'Vui lòng nhập họ tên' })}
+                        {...register('fullName', { required: t('name_error') })}
                         className="input-dark"
-                        placeholder="Nguyễn Văn A"
+                        placeholder={t('name_placeholder')}
                       />
                       {errors.fullName && (
                         <p className="text-red-400 text-xs mt-1">{errors.fullName.message}</p>
@@ -142,15 +139,15 @@ export default function BookingForm() {
                     </div>
                     <div>
                       <label className="block text-[#CCCCCC] text-sm font-medium mb-1.5">
-                        Số điện thoại <span className="text-[#006400]">*</span>
+                        {t('phone_label')} <span className="text-[#006400]">*</span>
                       </label>
                       <input
                         {...register('phone', {
-                          required: 'Vui lòng nhập số điện thoại',
-                          pattern: { value: /^[0-9]{10,11}$/, message: 'Số điện thoại không hợp lệ' },
+                          required: t('phone_error'),
+                          pattern: { value: /^[0-9]{10,11}$/, message: t('phone_invalid') },
                         })}
                         className="input-dark"
-                        placeholder="0912 345 678"
+                        placeholder={t('phone_placeholder')}
                         type="tel"
                       />
                       {errors.phone && (
@@ -162,7 +159,7 @@ export default function BookingForm() {
                   {/* Email */}
                   <div>
                     <label className="block text-[#CCCCCC] text-sm font-medium mb-1.5">
-                      Email <span className="text-[#666]">(tùy chọn)</span>
+                      {t('email_label')} <span className="text-[#666]">{t('email_optional')}</span>
                     </label>
                     <input
                       {...register('email')}
@@ -175,19 +172,19 @@ export default function BookingForm() {
                   {/* Car model */}
                   <div>
                     <label className="block text-[#CCCCCC] text-sm font-medium mb-1.5">
-                      Dòng xe mong muốn <span className="text-[#006400]">*</span>
+                      {t('car_label')} <span className="text-[#006400]">*</span>
                     </label>
                     <select
-                      {...register('carModel', { required: 'Vui lòng chọn dòng xe' })}
+                      {...register('carModel', { required: t('car_error') })}
                       className="input-dark appearance-none"
                     >
-                      <option value="">-- Chọn dòng xe --</option>
+                      <option value="">{t('car_placeholder')}</option>
                       {CARS.map((car) => (
                         <option key={car.id} value={car.name}>
-                          {car.name} — {car.seats} chỗ, {car.transmission === 'auto' ? 'Số tự động' : 'Số sàn'}
+                          {car.name} — {car.seats} {t('seats_suffix')}, {car.transmission === 'auto' ? t('auto_label') : t('manual_label')}
                         </option>
                       ))}
-                      <option value="Tư vấn giúp tôi">Tư vấn giúp tôi</option>
+                      <option value="consult">{t('car_consult')}</option>
                     </select>
                     {errors.carModel && (
                       <p className="text-red-400 text-xs mt-1">{errors.carModel.message}</p>
@@ -198,10 +195,10 @@ export default function BookingForm() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[#CCCCCC] text-sm font-medium mb-1.5">
-                        Ngày nhận xe <span className="text-[#006400]">*</span>
+                        {t('start_label')} <span className="text-[#006400]">*</span>
                       </label>
                       <input
-                        {...register('startDate', { required: 'Chọn ngày nhận xe' })}
+                        {...register('startDate', { required: t('start_error') })}
                         className="input-dark"
                         type="date"
                         min={new Date().toISOString().split('T')[0]}
@@ -212,10 +209,10 @@ export default function BookingForm() {
                     </div>
                     <div>
                       <label className="block text-[#CCCCCC] text-sm font-medium mb-1.5">
-                        Ngày trả xe <span className="text-[#006400]">*</span>
+                        {t('end_label')} <span className="text-[#006400]">*</span>
                       </label>
                       <input
-                        {...register('endDate', { required: 'Chọn ngày trả xe' })}
+                        {...register('endDate', { required: t('end_error') })}
                         className="input-dark"
                         type="date"
                         min={new Date().toISOString().split('T')[0]}
@@ -229,13 +226,13 @@ export default function BookingForm() {
                   {/* Pickup location */}
                   <div>
                     <label className="block text-[#CCCCCC] text-sm font-medium mb-1.5">
-                      Địa điểm nhận xe <span className="text-[#006400]">*</span>
+                      {t('pickup_label')} <span className="text-[#006400]">*</span>
                     </label>
                     <select
-                      {...register('pickupLocation', { required: 'Chọn địa điểm nhận xe' })}
+                      {...register('pickupLocation', { required: t('pickup_error') })}
                       className="input-dark appearance-none"
                     >
-                      <option value="">-- Chọn địa điểm --</option>
+                      <option value="">{t('pickup_placeholder')}</option>
                       {PICKUP_LOCATIONS.map((loc) => (
                         <option key={loc} value={loc}>{loc}</option>
                       ))}
@@ -248,13 +245,13 @@ export default function BookingForm() {
                   {/* Notes */}
                   <div>
                     <label className="block text-[#CCCCCC] text-sm font-medium mb-1.5">
-                      Ghi chú thêm
+                      {t('notes_label')}
                     </label>
                     <textarea
                       {...register('notes')}
                       className="input-dark resize-none"
                       rows={3}
-                      placeholder="Yêu cầu đặc biệt, địa chỉ cụ thể, số lượng xe..."
+                      placeholder={t('notes_placeholder')}
                     />
                   </div>
 
@@ -266,16 +263,14 @@ export default function BookingForm() {
                     {loading ? (
                       <>
                         <Loader2 size={18} className="animate-spin" />
-                        Đang gửi...
+                        {t('submitting')}
                       </>
                     ) : (
-                      'Gửi yêu cầu đặt xe'
+                      t('submit_btn')
                     )}
                   </button>
 
-                  <p className="text-[#666] text-xs text-center">
-                    Thông tin của bạn được bảo mật tuyệt đối. Chúng tôi sẽ liên hệ trong 15 phút.
-                  </p>
+                  <p className="text-[#666] text-xs text-center">{t('privacy_note')}</p>
                 </form>
               </div>
             )}

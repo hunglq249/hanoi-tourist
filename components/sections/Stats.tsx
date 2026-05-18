@@ -1,13 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
-const STATS = [
-  { value: 200, suffix: '+', label: 'Xe cho thuê', sublabel: 'Đa dạng dòng xe' },
-  { value: 15000, suffix: '+', label: 'Khách hàng tin dùng', sublabel: 'Từ năm 2015' },
-  { value: 8, suffix: '+', label: 'Năm kinh nghiệm', sublabel: 'Uy tín #1 Hà Nội' },
-  { value: 63, suffix: '', label: 'Tỉnh thành', sublabel: 'Hỗ trợ toàn quốc' },
-];
+const STAT_VALUES = [
+  { value: 200, suffix: '+', labelKey: 'cars_label', subKey: 'cars_sub' },
+  { value: 15000, suffix: '+', labelKey: 'clients_label', subKey: 'clients_sub' },
+  { value: 8, suffix: '+', labelKey: 'years_label', subKey: 'years_sub' },
+  { value: 63, suffix: '', labelKey: 'provinces_label', subKey: 'provinces_sub' },
+] as const;
 
 function CountUp({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
@@ -48,27 +50,41 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
   );
 }
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
 export default function Stats() {
+  const t = useTranslations('stats');
+
   return (
-    <section className="py-16 border-y border-[#2A2A2A]" style={{ background: 'linear-gradient(90deg, #0A0A0A, #141414, #0A0A0A)' }}>
+    <section className="stats-section py-16 border-y border-[#DDE8DD] dark:border-[#2A2A2A] bg-[#F0F6F0] dark:bg-[#141414]">
       <div className="container-custom">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {STATS.map((stat, i) => (
-            <div
-              key={stat.label}
-              className="text-center group"
-              style={{
-                animation: `fadeUp 0.6s ease-out ${i * 0.1}s both`,
-              }}
-            >
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+        >
+          {STAT_VALUES.map((stat) => (
+            <motion.div key={stat.labelKey} variants={itemVariants} className="text-center">
               <div className="font-display text-4xl md:text-5xl font-bold gradient-text mb-2">
                 <CountUp target={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="text-white font-semibold text-sm md:text-base">{stat.label}</div>
-              <div className="text-[#8A8A8A] text-xs mt-1">{stat.sublabel}</div>
-            </div>
+              <div className="font-semibold text-sm md:text-base text-[#1A2B1A] dark:text-white">
+                {t(stat.labelKey)}
+              </div>
+              <div className="text-xs mt-1 text-[#546A54] dark:text-[#8A8A8A]">{t(stat.subKey)}</div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

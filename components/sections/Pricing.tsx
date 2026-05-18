@@ -1,19 +1,23 @@
 import { Check } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import { getPricing } from '@/lib/content';
 import type { PricingPlan } from '@/lib/types';
+import ScrollReveal from '@/components/ui/ScrollReveal';
+import StaggerContainer from '@/components/ui/StaggerContainer';
+import StaggerItem from '@/components/ui/StaggerItem';
 
-function PlanCard({ plan }: { plan: PricingPlan }) {
+function PlanCard({ plan, highlightBadge }: { plan: PricingPlan; highlightBadge: string }) {
   return (
     <div
       className={`relative rounded-2xl p-8 border transition-all ${
         plan.highlight
-          ? 'bg-gradient-to-b from-[#071A10] to-[#141414] border-[#006400]/50 shadow-[0_0_40px_rgba(212,160,23,0.1)]'
+          ? 'bg-gradient-to-b from-[#071A10] to-[#141414] border-[#006400]/50 shadow-[0_0_40px_rgba(0,100,0,0.12)]'
           : 'bg-[#141414] border-[#2A2A2A] hover:border-[#3A3A3A]'
       }`}
     >
       {plan.highlight && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#006400] to-[#008000] text-white text-xs font-bold px-5 py-1.5 rounded-full whitespace-nowrap">
-          ✦ TIẾT KIỆM NHẤT
+          {highlightBadge}
         </div>
       )}
 
@@ -63,32 +67,37 @@ function PlanCard({ plan }: { plan: PricingPlan }) {
 }
 
 export default async function Pricing() {
+  const t = await getTranslations('pricing');
   const plans = await getPricing();
 
   return (
     <section id="pricing" className="section-padding bg-[#0D0D0D]">
       <div className="container-custom">
-        <div className="text-center mb-14">
-          <div className="section-label justify-center mb-4">Bảng giá dịch vụ</div>
+        <ScrollReveal className="text-center mb-14">
+          <div className="section-label justify-center mb-4">{t('label')}</div>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
-            Giá <span className="gradient-text">Minh Bạch</span>
+            {t('heading1')} <span className="gradient-text">{t('headingGreen')}</span>
             <br />
-            Không Phát Sinh
+            {t('heading2')}
           </h2>
           <p className="text-[#8A8A8A] text-lg max-w-xl mx-auto">
-            Chúng tôi cam kết báo giá chính xác từ đầu. Không phí ẩn, không bất ngờ.
+            {t('description')}
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <StaggerContainer className="grid md:grid-cols-3 gap-6">
           {plans.map((plan) => (
-            <PlanCard key={plan.id} plan={plan} />
+            <StaggerItem key={plan.id}>
+              <PlanCard plan={plan} highlightBadge={t('highlight_badge')} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
-        <p className="text-center text-[#666] text-sm mt-8">
-          * Giá trên chưa bao gồm nhiên liệu và phí cầu đường. Liên hệ để biết giá chính xác theo dòng xe.
-        </p>
+        <ScrollReveal delay={0.15}>
+          <p className="text-center text-[#666] text-sm mt-8">
+            {t('disclaimer')}
+          </p>
+        </ScrollReveal>
       </div>
     </section>
   );

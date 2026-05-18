@@ -1,10 +1,14 @@
 import { Star, Quote } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import { getTestimonials } from '@/lib/content';
 import type { Testimonial } from '@/lib/types';
+import ScrollReveal from '@/components/ui/ScrollReveal';
+import StaggerContainer from '@/components/ui/StaggerContainer';
+import StaggerItem from '@/components/ui/StaggerItem';
 
 function ReviewCard({ review }: { review: Testimonial }) {
   return (
-    <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-7 hover:border-[#006400]/20 transition-all group">
+    <div className="bg-[#141414] border border-[#2A2A2A] rounded-2xl p-7 hover:border-[#006400]/20 transition-all group h-full">
       <div className="flex items-start justify-between mb-5">
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#006400] to-[#008000] flex items-center justify-center text-white font-bold text-lg font-display">
@@ -31,35 +35,40 @@ function ReviewCard({ review }: { review: Testimonial }) {
 }
 
 export default async function Testimonials() {
+  const t = await getTranslations('testimonials');
   const reviews = await getTestimonials();
 
   return (
     <section className="section-padding bg-[#0D0D0D]">
       <div className="container-custom">
-        <div className="text-center mb-14">
-          <div className="section-label justify-center mb-4">Khách hàng nói gì</div>
+        <ScrollReveal className="text-center mb-14">
+          <div className="section-label justify-center mb-4">{t('label')}</div>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
-            15,000+ Khách Hàng
+            {t('heading1')}
             <br />
-            <span className="gradient-text">Tin Tưởng</span>
+            <span className="gradient-text">{t('headingGreen')}</span>
           </h2>
-        </div>
+        </ScrollReveal>
 
-        <div className="flex items-center justify-center gap-3 mb-12">
-          <div className="flex gap-1">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <Star key={i} size={24} className="text-[#006400] fill-[#006400]" />
-            ))}
+        <ScrollReveal delay={0.1}>
+          <div className="flex items-center justify-center gap-3 mb-12">
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Star key={i} size={24} className="text-[#006400] fill-[#006400]" />
+              ))}
+            </div>
+            <span className="text-white font-display text-2xl font-bold">4.9</span>
+            <span className="text-[#8A8A8A]">{t('google_reviews')}</span>
           </div>
-          <span className="text-white font-display text-2xl font-bold">4.9</span>
-          <span className="text-[#8A8A8A]">/ 5 trên Google Reviews</span>
-        </div>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <StaggerContainer className="grid md:grid-cols-2 gap-6">
           {reviews.map((review) => (
-            <ReviewCard key={review.id} review={review} />
+            <StaggerItem key={review.id}>
+              <ReviewCard review={review} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );
