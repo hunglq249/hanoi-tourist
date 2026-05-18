@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { RefreshCw, Car, Layers, Star, HelpCircle, CheckSquare, Tag, LogOut } from 'lucide-react';
+import { RefreshCw, Car, Layers, Star, HelpCircle, CheckSquare, Tag, LogOut, Info } from 'lucide-react';
 import BookingsTab from './_components/BookingsTab';
 import CarsManager from './_components/CarsManager';
 import ServicesManager from './_components/ServicesManager';
@@ -10,6 +10,7 @@ import PricingManager from './_components/PricingManager';
 import TestimonialsManager from './_components/TestimonialsManager';
 import FAQsManager from './_components/FAQsManager';
 import WhyUsManager from './_components/WhyUsManager';
+import AboutUsManager from './_components/AboutUsManager';
 
 const TABS = [
   { key: 'bookings',     label: 'Đặt xe',         icon: Car },
@@ -19,6 +20,7 @@ const TABS = [
   { key: 'pricing',     label: 'Bảng giá',        icon: Tag },
   { key: 'testimonials', label: 'Đánh giá',       icon: Star },
   { key: 'faqs',        label: 'FAQ',             icon: HelpCircle },
+  { key: 'aboutus',     label: 'Về chúng tôi',    icon: Info },
 ] as const;
 
 type Tab = (typeof TABS)[number]['key'];
@@ -89,6 +91,7 @@ export default function AdminPage() {
         {activeTab === 'pricing'      && <PricingManager />}
         {activeTab === 'testimonials' && <TestimonialsManager />}
         {activeTab === 'faqs'         && <FAQsManager />}
+        {activeTab === 'aboutus'      && <AboutUsManager />}
       </div>
     </div>
   );

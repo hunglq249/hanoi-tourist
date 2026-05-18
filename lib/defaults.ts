@@ -1,4 +1,4 @@
-import type { Service, PricingPlan, Testimonial, FAQItem, WhyUsData } from './types';
+import type { Service, PricingPlan, Testimonial, FAQItem, WhyUsData, AboutUs } from './types';
 
 export const DEFAULT_SERVICES: Service[] = [
   {
@@ -139,6 +139,17 @@ export const DEFAULT_FAQS: FAQItem[] = [
     a: 'Giao nhận xe trong nội thành Hà Nội (cách văn phòng dưới 10km) hoàn toàn miễn phí. Sân bay Nội Bài phụ thu 150.000đ. Ngoài 10km tính theo km thực tế.',
   },
 ];
+
+export const DEFAULT_ABOUT_US: AboutUs = {
+  whoWeAre:
+    '<p>Hanoi Tourism là đơn vị cho thuê xe uy tín hàng đầu tại Hà Nội, với hơn 10 năm kinh nghiệm phục vụ khách hàng cá nhân và doanh nghiệp trên toàn quốc. Chúng tôi cung cấp dịch vụ thuê xe tự lái và thuê xe dài hạn chất lượng cao với đội xe đa dạng từ sedan, SUV, MPV đến xe hạng sang.</p><p>Với phương châm <strong>"Uy tín — An toàn — Tận tâm"</strong>, Hanoi Tourism cam kết mang đến cho mỗi khách hàng trải nghiệm di chuyển hoàn hảo nhất.</p>',
+  history:
+    '<p>Được thành lập năm 2015, Hanoi Tourism bắt đầu với đội xe khiêm tốn 5 chiếc sedan. Qua hơn 10 năm phát triển không ngừng, chúng tôi đã mở rộng quy mô lên hơn 200 xe thuộc nhiều dòng khác nhau, phục vụ hàng chục nghìn khách hàng.</p><ul><li><strong>2015:</strong> Thành lập với 5 xe sedan đầu tiên tại Hà Nội</li><li><strong>2017:</strong> Mở rộng dịch vụ thuê xe dài hạn cho doanh nghiệp</li><li><strong>2019:</strong> Đạt mốc 5.000 khách hàng, bổ sung dòng xe SUV và MPV</li><li><strong>2022:</strong> Ra mắt nền tảng đặt xe trực tuyến và Zalo OA</li><li><strong>2024:</strong> Phục vụ hơn 15.000 khách hàng, hợp tác với các tập đoàn lớn</li></ul>',
+  vision:
+    '<p><strong>Tầm nhìn:</strong> Trở thành thương hiệu cho thuê xe hàng đầu miền Bắc Việt Nam, mang lại trải nghiệm di chuyển an toàn, tiện lợi và đẳng cấp cho mọi đối tượng khách hàng.</p><p><strong>Sứ mệnh:</strong> Cung cấp giải pháp di chuyển toàn diện, minh bạch và đáng tin cậy — giúp mỗi khách hàng tự tin khám phá mọi hành trình, dù là cá nhân hay doanh nghiệp.</p>',
+  coreValues:
+    '<ul><li><strong>Uy tín:</strong> Cam kết minh bạch về giá cả và chất lượng, không phát sinh chi phí ẩn.</li><li><strong>An toàn:</strong> Toàn bộ xe được kiểm tra kỹ trước mỗi chuyến, bảo hiểm đầy đủ theo tiêu chuẩn.</li><li><strong>Tận tâm:</strong> Đội ngũ hỗ trợ 24/7, luôn đồng hành và xử lý mọi tình huống kịp thời.</li><li><strong>Đổi mới:</strong> Không ngừng cải tiến dịch vụ và nâng cấp đội xe để mang lại trải nghiệm tốt nhất.</li><li><strong>Chuyên nghiệp:</strong> Quy trình chuẩn hóa, nhân viên được đào tạo bài bản.</li></ul>',
+};
 
 export const DEFAULT_WHYUS: WhyUsData = {
   reasons: [

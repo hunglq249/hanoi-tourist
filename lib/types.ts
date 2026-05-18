@@ -92,3 +92,10 @@ export interface WhyUsData {
   reasons: WhyUsReason[];
   partners: string[];
 }
+
+export interface AboutUs {
+  whoWeAre: string;
+  history: string;
+  vision: string;
+  coreValues: string;
+}

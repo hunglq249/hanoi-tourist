@@ -1,7 +1,7 @@
 import { supabase } from './supabase';
-import type { Car, Service, PricingPlan, Testimonial, FAQItem, WhyUsData, WhyUsReason, Booking } from './types';
+import type { Car, Service, PricingPlan, Testimonial, FAQItem, WhyUsData, WhyUsReason, Booking, AboutUs } from './types';
 import { CARS } from './data';
-import { DEFAULT_SERVICES, DEFAULT_PRICING, DEFAULT_TESTIMONIALS, DEFAULT_FAQS, DEFAULT_WHYUS } from './defaults';
+import { DEFAULT_SERVICES, DEFAULT_PRICING, DEFAULT_TESTIMONIALS, DEFAULT_FAQS, DEFAULT_WHYUS, DEFAULT_ABOUT_US } from './defaults';
 
 // ── Cars ──────────────────────────────────────────────────────────────────────
 
@@ -233,6 +233,39 @@ export async function deleteReason(id: string): Promise<void> {
 export async function setPartners(partners: string[]): Promise<void> {
   const { error } = await supabase.from('settings').upsert({ key: 'partners', value: partners });
   if (error) throw error;
+}
+
+// ── About Us ──────────────────────────────────────────────────────────────────
+
+const ABOUT_KEYS = ['about_who_we_are', 'about_history', 'about_vision', 'about_core_values'] as const;
+
+export async function getAboutUs(): Promise<AboutUs> {
+  const { data, error } = await supabase
+    .from('settings')
+    .select('key, value')
+    .in('key', [...ABOUT_KEYS]);
+  if (error || !data?.length) return DEFAULT_ABOUT_US;
+  const map: Record<string, string> = {};
+  for (const row of data) map[row.key as string] = row.value as string;
+  return {
+    whoWeAre: map['about_who_we_are'] ?? DEFAULT_ABOUT_US.whoWeAre,
+    history: map['about_history'] ?? DEFAULT_ABOUT_US.history,
+    vision: map['about_vision'] ?? DEFAULT_ABOUT_US.vision,
+    coreValues: map['about_core_values'] ?? DEFAULT_ABOUT_US.coreValues,
+  };
+}
+
+export async function updateAboutUs(about: AboutUs): Promise<void> {
+  const rows = [
+    { key: 'about_who_we_are', value: about.whoWeAre },
+    { key: 'about_history', value: about.history },
+    { key: 'about_vision', value: about.vision },
+    { key: 'about_core_values', value: about.coreValues },
+  ];
+  for (const row of rows) {
+    const { error } = await supabase.from('settings').upsert(row);
+    if (error) throw error;
+  }
 }
 
 // ── Bookings ──────────────────────────────────────────────────────────────────

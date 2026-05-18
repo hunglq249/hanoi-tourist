@@ -171,6 +171,19 @@
     "description": "Không tìm thấy câu trả lời? Liên hệ trực tiếp với chúng tôi qua hotline hoặc Zalo.",
     "chat_zalo": "Chat qua Zalo"
   },
+  "aboutUs": {
+    "label": "Về chúng tôi",
+    "pageTitle": "Về chúng tôi | Hanoi Tourism",
+    "pageDescription": "Tìm hiểu về Hanoi Tourism — đơn vị cho thuê xe tự lái uy tín hàng đầu Hà Nội, hơn 10 năm kinh nghiệm phục vụ khách hàng.",
+    "pageHeading": "Về Chúng Tôi",
+    "pageSubtitle": "Hơn 10 năm kinh nghiệm — đơn vị cho thuê xe tự lái và dài hạn uy tín hàng đầu tại Hà Nội.",
+    "snippet_heading": "Chúng Tôi Là Ai?",
+    "snippet_cta": "Tìm hiểu thêm",
+    "section_who": "Chúng tôi là ai?",
+    "section_history": "Hình thành và phát triển",
+    "section_vision": "Tầm nhìn và Sứ mệnh",
+    "section_values": "Giá trị cốt lõi"
+  },
   "footer": {
     "newsletter_title": "Nhận Ưu Đãi Đặc Biệt",
     "newsletter_desc": "Đăng ký nhận thông tin khuyến mãi và ưu đãi thuê xe hàng tuần từ đội ngũ chúng tôi.",

@@ -4,6 +4,7 @@ import Navbar from '@/components/sections/Navbar';
 import Hero from '@/components/sections/Hero';
 import Stats from '@/components/sections/Stats';
 import Services from '@/components/sections/Services';
+import AboutUsSnippet from '@/components/sections/AboutUsSnippet';
 import HowItWorks from '@/components/sections/HowItWorks';
 import Fleet from '@/components/sections/Fleet';
 import WhyUs from '@/components/sections/WhyUs';
@@ -31,6 +32,7 @@ export default function HomePage() {
       <Navbar />
       <Hero />
       <Stats />
+      <AboutUsSnippet />
       <Services />
       <HowItWorks />
       <Fleet />

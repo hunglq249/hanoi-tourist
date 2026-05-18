@@ -171,6 +171,19 @@
     "description": "Can't find your answer? Contact us directly via hotline or Zalo.",
     "chat_zalo": "Chat on Zalo"
   },
+  "aboutUs": {
+    "label": "About Us",
+    "pageTitle": "About Us | Hanoi Tourism",
+    "pageDescription": "Learn about Hanoi Tourism — Hanoi's #1 trusted self-drive car rental company with over 10 years of experience.",
+    "pageHeading": "About Us",
+    "pageSubtitle": "Over 10 years of experience — Hanoi's most trusted self-drive and long-term car rental service.",
+    "snippet_heading": "Who Are We?",
+    "snippet_cta": "Learn More",
+    "section_who": "Who Are We?",
+    "section_history": "Our Story",
+    "section_vision": "Vision & Mission",
+    "section_values": "Core Values"
+  },
   "footer": {
     "newsletter_title": "Get Special Offers",
     "newsletter_desc": "Subscribe to receive weekly promotions and car rental deals from our team.",

@@ -330,3 +330,25 @@ html:not(.dark) .stats-section {
 .service-prose p:last-child { margin-bottom: 0; }
 .service-prose strong { font-weight: 600; }
 .service-prose em { font-style: italic; }
+
+/* About Us page — rich HTML content from TinyMCE */
+.about-prose p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+}
+.about-prose p:last-child { margin-bottom: 0; }
+.about-prose strong { font-weight: 600; color: var(--text); }
+.about-prose em { font-style: italic; }
+.about-prose ul, .about-prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.about-prose li {
+  margin-bottom: 0.625rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+.about-prose li strong { color: var(--text); }
+.about-prose a { color: var(--green); text-decoration: underline; }
